@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UniCarona CCI - Home</title>
+  <title>UniCarona CCI</title>
+  <link rel="icon" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -11,155 +12,138 @@
 </head>
 <body>
 
-  <!-- ===== BARRA SUPERIOR ===== -->
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a href="#" class="logo">
-        <span class="logo-icon">
-          <svg viewBox="0 0 34 42" aria-hidden="true">
-            <path d="M17 1C8.2 1 1 8 1 16.5 1 26 11 33 17 41c6-8 16-15 16-24.5C33 8 25.800 1 17 1z" fill="#fff"/>
-            <circle cx="17" cy="16" r="11" fill="#022480"/>
-            <text x="17" y="19.500" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="9" fill="#fff">CCI</text>
-            <path d="M12 26.500h10" stroke="#ffd100" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span class="logo-text">Uni<strong>Carona</strong> <small>CCI</small></span>
-      </a>
-
-      <div class="search-box">
-        <span>🔍</span>
-        <input type="text" id="campoBusca" placeholder="Buscar por origem, destino ou nome...">
-      </div>
-
-      <nav class="topbar-actions">
-        <button class="icon-btn" id="btnNotificacoes" title="Notificações">
-          🔔<span class="badge" id="badgeNotif">0</span>
-        </button>
-        <div class="avatar avatar-sm" id="avatarTopo">VC</div>
-      </nav>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="logo" aria-label="UniCarona CCI">
+      <img src="logo.png" alt="" class="logo-img">
+      <span class="logo-text">Uni<strong>Carona</strong></span>
+    </a>
+    <div class="search-box">
+      <span aria-hidden="true">🔍</span>
+      <input type="search" id="campoBusca" placeholder="Buscar origem, destino, pessoa ou assunto" aria-label="Buscar">
     </div>
-  </header>
+    <nav class="topbar-actions">
+      <button class="icon-btn" id="btnTema" title="Alternar tema" aria-label="Alternar tema">🌙</button>
+      <button class="icon-btn" id="btnNotificacoes" title="Notificações" aria-label="Notificações">🔔<span class="badge zero" id="badgeNotif">0</span></button>
+      <button class="avatar avatar-sm avatar-btn" id="avatarTopo" title="Editar perfil" aria-label="Editar perfil">VC</button>
+    </nav>
+  </div>
+</header>
 
-  <main class="layout">
-
-    <!-- ===== COLUNA ESQUERDA: PERFIL E MENU ===== -->
-    <aside class="coluna-esq">
-      <div class="card perfil">
-        <div class="perfil-capa"></div>
-        <div class="avatar avatar-lg">VC</div>
-        <h3 id="nomePerfil">Você</h3>
-        <p class="muted">Aluno(a) • Faculdade CCI</p>
-        <div class="perfil-stats">
-          <div><strong id="statOferecidas">0</strong><span>Oferecidas</span></div>
-          <div><strong id="statSolicitadas">0</strong><span>Solicitadas</span></div>
-        </div>
+<main class="layout">
+  <aside class="coluna-esq">
+    <div class="card perfil">
+      <div class="perfil-capa"></div>
+      <div class="avatar avatar-lg" id="avatarPerfil">VC</div>
+      <h3 id="nomePerfil">Você</h3>
+      <p class="muted" id="cursoPerfil">Aluno(a) • Faculdade CCI</p>
+      <button class="btn btn-ghost btn-sm" id="editarPerfil">Editar perfil</button>
+      <div class="perfil-stats">
+        <div><strong id="statOferecidas">0</strong><span>Publicadas</span></div>
+        <div><strong id="statSolicitadas">0</strong><span>Solicitadas</span></div>
+        <div><strong id="statSalvas">0</strong><span>Salvas</span></div>
       </div>
+    </div>
+    <nav class="card menu" id="menu">
+      <a href="#" class="menu-item ativo" data-filtro="todas">🏠 Início</a>
+      <a href="#" class="menu-item" data-filtro="oferta">🚘 Caronas oferecidas</a>
+      <a href="#" class="menu-item" data-filtro="pedido">🙋 Pedidos de carona</a>
+      <a href="#" class="menu-item" data-filtro="minhas">📝 Minhas publicações</a>
+      <a href="#" class="menu-item" data-filtro="solicitadas">✅ Minhas solicitações</a>
+      <a href="#" class="menu-item" data-filtro="salvas">🔖 Salvas</a>
+    </nav>
+  </aside>
 
-      <nav class="card menu">
-        <a href="#" class="menu-item ativo" data-filtro="todas">🏠 Início</a>
-        <a href="#" class="menu-item" data-filtro="oferta">🚘 Caronas oferecidas</a>
-        <a href="#" class="menu-item" data-filtro="pedido">🙋 Pedidos de carona</a>
-        <a href="#" class="menu-item" data-filtro="minhas">⭐ Minhas caronas</a>
-      </nav>
-    </aside>
-
-    <!-- ===== COLUNA CENTRAL: FEED ===== -->
-    <section class="feed">
-
-      <!-- Criar publicação -->
-      <div class="card novo-post">
-        <div class="novo-post-topo">
-          <div class="avatar">VC</div>
-          <button class="fake-input" id="abrirForm">Para onde você vai hoje? Ofereça ou peça uma carona...</button>
-        </div>
-
-        <form id="formCarona" class="form-carona oculto">
-          <div class="tipo-toggle">
-            <label><input type="radio" name="tipo" value="oferta" checked><span>🚘 Ofereço carona</span></label>
-            <label><input type="radio" name="tipo" value="pedido"><span>🙋 Preciso de carona</span></label>
-          </div>
-
-          <div class="grid-form">
-            <label>Origem
-              <input type="text" id="origem" placeholder="Ex.: Taguatinga" required>
-            </label>
-            <label>Destino
-              <input type="text" id="destino" placeholder="Ex.: Faculdade CCI" required>
-            </label>
-            <label>Data
-              <input type="date" id="data" required>
-            </label>
-            <label>Horário
-              <input type="time" id="horario" required>
-            </label>
-            <label>Vagas
-              <input type="number" id="vagas" min="1" max="6" value="3" required>
-            </label>
-          </div>
-
-          <label class="full">Observações (opcional)
-            <textarea id="obs" rows="2" placeholder="Ex.: Divido o combustível, saio pontualmente..."></textarea>
-          </label>
-
-          <div class="form-botoes">
-            <button type="button" class="btn btn-ghost" id="cancelarForm">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Publicar</button>
-          </div>
-        </form>
+  <section class="feed">
+    <div class="card novo-post">
+      <div class="novo-post-topo">
+        <div class="avatar" id="avatarComposer">VC</div>
+        <button class="fake-input" id="abrirForm">Para onde você vai? Ofereça ou peça uma carona…</button>
       </div>
+      <form id="formCarona" class="form-carona oculto">
+        <div class="tipo-toggle">
+          <label><input type="radio" name="tipo" value="oferta" checked><span>🚘 Ofereço carona</span></label>
+          <label><input type="radio" name="tipo" value="pedido"><span>🙋 Preciso de carona</span></label>
+        </div>
+        <div class="grid-form">
+          <label>Origem<input type="text" id="origem" placeholder="Ex.: Taguatinga" required maxlength="40"></label>
+          <label>Destino<input type="text" id="destino" value="Faculdade CCI" required maxlength="40"></label>
+          <label>Data<input type="date" id="data" required></label>
+          <label>Horário<input type="time" id="horario" required></label>
+          <label><span id="rotuloVagas">Vagas</span><input type="number" id="vagas" min="1" max="6" value="3" required></label>
+          <label>Contribuição (R$)<input type="number" id="valor" min="0" max="200" step="1" value="0" placeholder="0 = grátis"></label>
+        </div>
+        <label class="full">Detalhes (opcional)
+          <textarea id="obs" rows="2" maxlength="280" placeholder="Ponto de encontro, regras, retorno…"></textarea>
+          <small class="contador"><span id="contador">0</span>/280</small>
+        </label>
+        <div class="form-botoes">
+          <button type="button" class="btn btn-ghost" id="cancelarForm">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Publicar</button>
+        </div>
+      </form>
+    </div>
 
-      <!-- Filtros rápidos -->
+    <div class="barra-filtros">
       <div class="chips" id="chips">
         <button class="chip ativo" data-filtro="todas">Todas</button>
         <button class="chip" data-filtro="oferta">Oferecidas</button>
         <button class="chip" data-filtro="pedido">Pedidos</button>
         <button class="chip" data-filtro="minhas">Minhas</button>
       </div>
-
-      <!-- Lista de posts -->
-      <div id="listaPosts"></div>
-      <p class="vazio oculto" id="msgVazio">Nenhuma carona encontrada. Que tal publicar a primeira? 🚗</p>
-    </section>
-
-    <!-- ===== COLUNA DIREITA ===== -->
-    <aside class="coluna-dir">
-      <div class="card">
-        <h4>🔥 Destinos em alta</h4>
-        <ul class="lista-simples" id="destinosAlta"></ul>
-      </div>
-
-      <div class="card">
-        <h4>🌱 Impacto da comunidade</h4>
-        <div class="impacto">
-          <div><strong id="impCarros">0</strong><span>carros a menos</span></div>
-          <div><strong id="impEconomia">R$ 0</strong><span>economia estimada</span></div>
-        </div>
-        <p class="muted pequeno">Cada vaga ocupada é um carro a menos a caminho da faculdade.</p>
-      </div>
-
-      <div class="card dicas">
-        <h4>🛡️ Dicas de segurança</h4>
-        <ul>
-          <li>Combine o ponto de encontro em local público.</li>
-          <li>Confira o nome e o vínculo do motorista.</li>
-          <li>Avise alguém sobre o seu trajeto.</li>
-        </ul>
-      </div>
-    </aside>
-  </main>
-
-  <!-- ===== PAINEL DE NOTIFICAÇÕES ===== -->
-  <div class="painel-notif oculto" id="painelNotif">
-    <div class="painel-notif-topo">
-      <strong>Notificações</strong>
-      <button class="icon-btn" id="fecharNotif">✕</button>
+      <select id="ordem" aria-label="Ordenar">
+        <option value="recentes">Mais recentes</option>
+        <option value="proximas">Saem primeiro</option>
+        <option value="populares">Mais curtidas</option>
+      </select>
     </div>
-    <ul id="listaNotif"></ul>
+
+    <div id="listaPosts"></div>
+    <div class="vazio oculto" id="msgVazio">
+      <p id="textoVazio">Nenhuma carona encontrada.</p>
+      <button class="btn btn-primary" id="vazioPublicar">Publicar uma carona</button>
+    </div>
+  </section>
+
+  <aside class="coluna-dir">
+    <div class="card">
+      <h4>🔥 Trajetos em alta</h4>
+      <ul class="lista-simples" id="destinosAlta"></ul>
+    </div>
+    
+    <div class="card dicas">
+      <h4>🛡️ Dicas de segurança</h4>
+      <ul>
+        <li>Combine o encontro em local público e movimentado.</li>
+        <li>Confira nome e vínculo de quem vai dar a carona.</li>
+        <li>Compartilhe seu trajeto com alguém de confiança.</li>
+      </ul>
+    </div>
+  </aside>
+</main>
+
+<div class="painel-notif oculto" id="painelNotif">
+  <div class="painel-notif-topo">
+    <strong>Notificações</strong>
+    <span><button class="link-btn" id="limparNotif">Limpar</button><button class="icon-btn" id="fecharNotif" aria-label="Fechar">✕</button></span>
   </div>
+  <ul id="listaNotif"></ul>
+</div>
 
-  <!-- Aviso rápido -->
-  <div class="toast oculto" id="toast"></div>
+<div class="modal-fundo oculto" id="modalPerfil">
+  <form class="modal card" id="formPerfil">
+    <h4>Editar perfil</h4>
+    <label>Nome<input type="text" id="perfNome" maxlength="30" required></label>
+    <label>Curso<input type="text" id="perfCurso" maxlength="40" placeholder="Ex.: ADS, Direito, Pedagogia"></label>
+    <div class="form-botoes">
+      <button type="button" class="btn btn-ghost" id="fecharPerfil">Cancelar</button>
+      <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+  </form>
+</div>
 
-  <script src="script.js"></script>
+<div class="toast oculto" id="toast" role="status"></div>
+
+<script src="script.js"></script>
 </body>
 </html>
